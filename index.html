@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 디지털새싹 경희중학교 AI 캠프</title>
+    <link href="https://cdn.jsdelivr.net/gh/neodunggeunmo/neodunggeunmo/neodunggeunmo.css" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'NeoDunggeunmo', sans-serif;
+            /* 마인크래프트 느낌의 하늘색과 잔디/흙을 표현한 배경 */
+            background-color: #5C94FC;
+            background-image: linear-gradient(to bottom, #5C94FC 0%, #5C94FC 70%, #5B8731 70%, #5B8731 75%, #8A5C33 75%, #8A5C33 100%);
+            background-size: cover;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        /* 상단 중앙 타이틀 */
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 4px 4px 0px #000;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #FFD700; /* 금색 마인크래프트 스타일 텍스트 */
+            letter-spacing: 2px;
+        }
+
+        /* 4등분 그리드 컨테이너 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 25px;
+            width: 90%;
+            max-width: 850px;
+            height: 55vh;
+            min-height: 400px;
+        }
+
+        /* 마인크래프트 UI 버튼 스타일 */
+        .card {
+            background-color: #C6C6C6;
+            border: 5px solid #000;
+            border-top-color: #FFF;
+            border-left-color: #FFF;
+            border-bottom-color: #555;
+            border-right-color: #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #000;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-shadow: 2px 2px 0px #DDD;
+            box-shadow: 0 8px 0px rgba(0,0,0,0.3);
+            transition: all 0.1s ease;
+        }
+
+        .card:hover {
+            background-color: #D6D6D6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 0px rgba(0,0,0,0.3);
+        }
+
+        .card:active {
+            border-top-color: #555;
+            border-left-color: #555;
+            border-bottom-color: #FFF;
+            border-right-color: #FFF;
+            transform: translateY(4px);
+            box-shadow: 0 4px 0px rgba(0,0,0,0.3);
+        }
+
+        /* 아이콘 크기 및 스타일 */
+        .icon {
+            font-size: 4.5rem;
+            margin-bottom: 15px;
+            filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.2));
+        }
+
+        /* 게임 스타일 모달 팝업창 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #C6C6C6;
+            border: 6px solid #000;
+            border-top-color: #FFF;
+            border-left-color: #FFF;
+            border-bottom-color: #555;
+            border-right-color: #555;
+            padding: 30px;
+            text-align: center;
+            color: #000;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 15px 0px rgba(0,0,0,0.4);
+        }
+
+        .modal-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #DDD;
+        }
+
+        .modal-content p {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            background: #A0A0A0;
+            padding: 15px;
+            border: 3px solid #000;
+            color: #FFF;
+            text-shadow: 2px 2px 0px #000;
+            word-break: break-all;
+        }
+
+        .modal-btn {
+            background-color: #A8A8A8;
+            border: 4px solid #000;
+            border-top-color: #FFF;
+            border-left-color: #FFF;
+            border-bottom-color: #555;
+            border-right-color: #555;
+            padding: 10px 25px;
+            font-family: 'NeoDunggeunmo', sans-serif;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .modal-btn:active {
+            border-top-color: #555;
+            border-left-color: #555;
+            border-bottom-color: #FFF;
+            border-right-color: #FFF;
+        }
+
+        /* 반응형 레이아웃 (모바일 화면 대응) */
+        @media (max-width: 650px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, 1fr);
+                height: auto;
+            }
+            .card {
+                padding: 25px 0;
+                font-size: 1.3rem;
+            }
+            .icon {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>2026 디지털새싹 경희중학교 AI 캠프</h1>
+    </header>
+
+    <div class="grid-container">
+        <a href="https://forms.gle/WutXqj6Bk8qciYw1A" target="_blank" class="card">
+            <div class="icon">📝</div>
+            <div>출석 확인</div>
+        </a>
+
+        <a href="https://guitarist-laurentius.github.io/fps-game/" target="_blank" class="card">
+            <div class="icon">🔫</div>
+            <div>FPS 게임</div>
+        </a>
+
+        <a href="https://makecode.microbit.org/#pub:58084-97422-47076-56806" target="_blank" class="card">
+            <div class="icon">📟</div>
+            <div>마이크로비트</div>
+        </a>
+
+        <div class="card" onclick="openModal()">
+            <div class="icon">🌐</div>
+            <div>실습용 계정</div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="pwdModal">
+        <div class="modal-content">
+            <h2>🔐 실습용 계정 정보</h2>
+            <p>실습용 계정 비밀번호:<br>029579051!</p>
+            <button class="modal-btn" onclick="closeModal()">확인</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('pwdModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('pwdModal').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
